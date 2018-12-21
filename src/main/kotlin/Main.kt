@@ -56,7 +56,7 @@ class Handle : MessageHandler() {
             return
         }
         if (role.position >= top.position || role.position <= bottom.position) {
-            sendMessage(event,"Role $role is not an assignable role.")
+            sendMessage(event,"Role ${role.name} is not an assignable role.")
             return
         }
         try {
