@@ -32,21 +32,19 @@ class Handle : MessageHandler() {
             !event.message.mentionsHere() &&
                 event.message.mentions.contains(event.client.ourUser)){
             //mentions our user but not @everyone and @here
-            sendMessage(event,"Hi, I'm `<@mention>`. I can assign instrument roles for you, see `~help` for more information")
+            sendMessage(event,"Hi, I'm `<@525692419220439060>`. I can assign instrument roles for you, see `~help` for more information")
         }
         if (!(content.startsWith("~getrole") || content.startsWith("-getrole"))) return
-        var name = content.substring("~getrole".length)
+        var name = content.substring("~getrole ".length)
         if (name.isBlank()) return
-        val chars = name.toCharArray()
-        if (chars.isEmpty()) return
-        chars[0] = chars[0].toUpperCase()
-        name = String(chars)
+        name = Character.toUpperCase(name.toCharArray()[0]) + name.substring(1)
+        println(name)
         //find the role with name name
         val role: IRole? = event.guild.getRolesByName(name).getOrNull(0)
         val top = event.guild.getRolesByName("Bot")[0]
         val bottom = event.guild.getRolesByName("Member")[0]
         if (role == null) {
-            sendMessage(event,"I can't find role $role")
+            sendMessage(event,"I can't find role $name")
             return
         }
         if (role.position >= top.position || role.position <= bottom.position) {
