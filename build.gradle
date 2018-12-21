@@ -1,0 +1,44 @@
+plugins {
+    id 'java'
+    id 'org.jetbrains.kotlin.jvm' version '1.3.11'
+    id("com.github.johnrengelman.shadow") version "4.0.3"
+}
+
+group 'Procord'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+//    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile 'com.google.code.gson:gson:2.8.4'
+    compile "com.discord4j:Discord4J:2.10.1"
+
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
+ //   compile group: 'org.slf4j', name: 'slf4j-api', version: '1.8.0-beta2'
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
+    compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.8.0-beta2'
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+
+
+}
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+//jar {
+//    manifest {
+//        attributes 'Main-Class': 'com.carson.Main'
+//    }
+//}
