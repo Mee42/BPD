@@ -7,7 +7,6 @@ import sx.blah.discord.handle.obj.StatusType
 import sx.blah.discord.util.DiscordException
 import sx.blah.discord.util.MissingPermissionsException
 import sx.blah.discord.util.RateLimitException
-import sx.blah.discord.util.RequestBuffer
 import java.io.PrintWriter
 import java.io.StringWriter
 import java.lang.StringBuilder
