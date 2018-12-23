@@ -39,17 +39,15 @@ class Handle : MessageHandler() {
             sendMessage(event,"Hi, I'm `<@525692419220439060>`. I can assign instrument roles for you, see `~help` for more information.")
         }
         if (!(content.startsWith("~getrole") || content.startsWith("-getrole"))) return
-        var name = content.substring("~getrole ".length)
+        val name = content.substring("~getrole ".length)
         if (name.isBlank()) return
-        name = Character.toUpperCase(name.toCharArray()[0]) + name.substring(1)
-        println(name)
         //find the role with name name
-        val role: IRole? = event.guild.getRolesByName(name).getOrNull(0)
+        val role: IRole? = getRole(event,name)
         val top = event.guild.getRolesByName("Bot")[0]
         val bottom = event.guild.getRolesByName("Member")[0]
         if (role == null) {
             val temp = getRoleList(event).map { Pair(it,getDistance(it,name)) }
-            temp.forEach { println(it.first + ":" + it.second) }
+//            temp.forEach { println(it.first + ":" + it.second) }
             val suggested = temp.sortedBy { it.second }[0].first
             sendMessage(event,"I can't find role $name, did you mean $suggested?")
 
@@ -80,6 +78,12 @@ class Handle : MessageHandler() {
         }
 
     }
+
+    private fun getRole(event: MessageReceivedEvent, name :String): IRole? {
+        return event.guild.roles
+            .map {Pair(it,it.name.toLowerCase())}.firstOrNull { it.second == name.toLowerCase() }?.first
+    }
+
     private fun getDistance(x: String, y: String): Int {
         val dp = Array(x.length + 1) { IntArray(y.length + 1) }
 
@@ -99,10 +103,10 @@ class Handle : MessageHandler() {
 
         return dp[x.length][y.length]
     }
+
     private fun costOfSubstitution(a: Char, b: Char) = if (a == b) 0 else 1
 
     private fun min(vararg numbers: Int) = Arrays.stream(numbers).min().orElse(Integer.MAX_VALUE)
-
 
     private fun getRoles(event: MessageReceivedEvent): String {
         val b = StringBuilder()
