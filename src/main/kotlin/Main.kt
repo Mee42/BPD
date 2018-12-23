@@ -10,10 +10,9 @@ import sx.blah.discord.util.RateLimitException
 import java.io.PrintWriter
 import java.io.StringWriter
 import java.lang.StringBuilder
-import java.util.*
 import java.util.Arrays
 
-
+const val VERSION = "1.1.0"
 
 
 fun main(args: Array<String>) {
@@ -30,6 +29,10 @@ class Handle : MessageHandler() {
         val content = event.message.content.toLowerCase()
         if(content == "-help" || content == "~help"){
             sendMessage(event,"Use `~getrole *role name*` to add or remove a role.\nAvailable roles:\n```\n${getRoles(event)}\n```")
+            return
+        }
+        if(content == "-version" || content == "~version"){
+            sendMessage(event,"<@525692419220439060> is currently at version: `$VERSION`, latest hash:`${getLatestHash().substring(0,7)}`")
             return
         }
         if(!event.message.mentionsEveryone() &&
